@@ -1,32 +1,42 @@
 package moit101.group28;
 
+import java.time.Duration;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 /**
- * Handles payroll logic for MotorPH, including gross salary and deductions.
+ * Handles payroll logic including time calculations and government deductions.
+ * @author Dianna Cathlene De Leon and Group 28
  */
 public class PayrollCalculator {
 
-    // Calculates weekly gross pay based on hourly rate and hours worked [cite: 50]
-    public double calculateGrossWeeklySalary(double hourlyRate, double weeklyHoursWorked) {
-        return hourlyRate * weeklyHoursWorked;
+    public double calculateHoursWorked(String timeIn, String timeOut) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime start = LocalTime.parse(timeIn, formatter);
+        LocalTime end = LocalTime.parse(timeOut, formatter);
+        
+        // Subtracting 1 hour for mandatory lunch break as per standard shift
+        double hours = Duration.between(start, end).toMinutes() / 60.0;
+        return hours - 1.0; 
     }
 
-    // Computes weekly SSS based on a 4.5% monthly estimate [cite: 52]
-    public double calculateSSSDeduction(double grossMonthlySalary) {
-        return (grossMonthlySalary * 0.045) / 4;
+    public double calculateGrossWeeklySalary(double hourlyRate, double totalHours) {
+        return hourlyRate * totalHours; 
     }
 
-    // Computes weekly PhilHealth based on 2.5% employee share [cite: 52]
-    public double calculatePhilHealthDeduction(double grossMonthlySalary) {
-        return (grossMonthlySalary * 0.025) / 4;
+    public double calculateSSSDeduction(double monthlyGross) {
+        return (monthlyGross * 0.045) / 4;
     }
 
-    // Computes weekly Pag-IBIG standard contribution [cite: 52]
-    public double calculatePagIbigDeduction(double grossMonthlySalary) {
+    public double calculatePhilHealthDeduction(double monthlyGross) {
+        return (monthlyGross * 0.025) / 4;
+    }
+
+    public double calculatePagIbigDeduction() {
         return 100.00 / 4;
     }
 
-    // Returns final net pay after all deductions are removed [cite: 52]
-    public double computeNetWeeklySalary(double grossWeekly, double totalDeductions) {
-        return grossWeekly - totalDeductions;
+    public double computeNetSalary(double gross, double deductions) {
+        return gross - deductions; 
     }
 }
