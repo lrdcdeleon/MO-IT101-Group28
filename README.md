@@ -1,7 +1,3 @@
-Since you've moved from Milestone 2 into the final Terminal Assessment, your README should reflect that the project is now a complete, automated system rather than just a "work in progress."
-
-Here is the updated, professional version of your README.md. You can copy this directly into your GitHub editor and click Commit changes.
-
 MotorPH Payroll System - Terminal Assessment
 📋 Project Overview
 This repository contains the finalized Phase 1 development for the MotorPH Employee Payroll System. This project automates the transition from manual payroll entry to a sophisticated, file-driven system. It handles data parsing, government-mandated deductions, and net salary computations to ensure high accuracy for MotorPH’s HR department.
